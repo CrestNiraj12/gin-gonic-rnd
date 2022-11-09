@@ -3,6 +3,7 @@ package main
 import (
 	"golab-gin-poc/controllers"
 	"golab-gin-poc/middlewares"
+	"golab-gin-poc/repositories"
 	"golab-gin-poc/services"
 	"io"
 	"net/http"
@@ -12,8 +13,9 @@ import (
 )
 
 var (
-	videoService    services.VideoService       = services.New()
-	videoController controllers.VideoController = controllers.New(videoService)
+	videoRepository repositories.VideoRepository = repositories.New()
+	videoService    services.VideoService        = services.New(videoRepository)
+	videoController controllers.VideoController  = controllers.New(videoService)
 )
 
 func setupLogOutput() {
@@ -33,12 +35,38 @@ func main() {
 
 	apiRoutes := server.Group("/api")
 	{
-		apiRoutes.GET("/posts", func(ctx *gin.Context) {
+		apiRoutes.GET("/videos", func(ctx *gin.Context) {
 			ctx.JSON(http.StatusOK, videoController.FindAll())
 		})
 
-		apiRoutes.POST("/posts", func(ctx *gin.Context) {
+		apiRoutes.POST("/videos", func(ctx *gin.Context) {
 			err := videoController.Save(ctx)
+			if err != nil {
+				ctx.JSON(http.StatusBadRequest, gin.H{
+					"error": err.Error(),
+				})
+			} else {
+				ctx.JSON(http.StatusOK, gin.H{
+					"message": "Success!",
+				})
+			}
+		})
+
+		apiRoutes.PUT("/videos/:id", func(ctx *gin.Context) {
+			err := videoController.Update(ctx)
+			if err != nil {
+				ctx.JSON(http.StatusBadRequest, gin.H{
+					"error": err.Error(),
+				})
+			} else {
+				ctx.JSON(http.StatusOK, gin.H{
+					"message": "Success!",
+				})
+			}
+		})
+
+		apiRoutes.DELETE("/videos/:id", func(ctx *gin.Context) {
+			err := videoController.Delete(ctx)
 			if err != nil {
 				ctx.JSON(http.StatusBadRequest, gin.H{
 					"error": err.Error(),

@@ -1,27 +1,42 @@
 package services
 
-import . "golab-gin-poc/models"
+import (
+	"golab-gin-poc/models"
+	"golab-gin-poc/repositories"
+)
 
 type VideoService interface {
-	Save(Video) Video
-	FindAll() []Video
+	Save(models.Video) models.Video
+	Update(models.Video) models.Video
+	Delete(models.Video) models.Video
+	FindAll() []models.Video
 }
 
 type videoService struct {
-	videos []Video
+	videoRepository repositories.VideoRepository
 }
 
-func New() VideoService {
+func New(repo repositories.VideoRepository) VideoService {
 	return &videoService{
-		videos: make([]Video, 0),
+		videoRepository: repo,
 	}
 }
 
-func (service *videoService) Save(video Video) Video {
-	service.videos = append(service.videos, video)
+func (service *videoService) Save(video models.Video) models.Video {
+	service.videoRepository.Save(video)
 	return video
 }
 
-func (service *videoService) FindAll() []Video {
-	return service.videos
+func (service *videoService) Update(video models.Video) models.Video {
+	service.videoRepository.Update(video)
+	return video
+}
+
+func (service *videoService) Delete(video models.Video) models.Video {
+	service.videoRepository.Delete(video)
+	return video
+}
+
+func (service *videoService) FindAll() []models.Video {
+	return service.videoRepository.FindAll()
 }

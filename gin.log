@@ -5,18 +5,25 @@
 [GIN-debug] GET    /css/*filepath            --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (1 handlers)
 [GIN-debug] HEAD   /css/*filepath            --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (1 handlers)
 [GIN-debug] Loaded HTML Templates (4): 
+	- header.html
 	- index.html
 	- 
 	- footer.html
-	- header.html
 
-[GIN-debug] GET    /api/posts                --> main.main.func1 (4 handlers)
-[GIN-debug] POST   /api/posts                --> main.main.func2 (4 handlers)
+[GIN-debug] GET    /api/videos               --> main.main.func1 (4 handlers)
+[GIN-debug] POST   /api/videos               --> main.main.func2 (4 handlers)
+[GIN-debug] PUT    /api/videos/:id           --> main.main.func3 (4 handlers)
+[GIN-debug] DELETE /api/videos/:id           --> main.main.func4 (4 handlers)
 [GIN-debug] GET    /view/videos              --> golab-gin-poc/controllers.VideoController.ShowAll-fm (4 handlers)
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
-[GIN-debug] Listening and serving HTTP on 127.0.0.1:8080
-127.0.0.1 - [09 Nov 22 14:04 +0545] POST /api/posts 200 814.125µs 
-127.0.0.1 - [09 Nov 22 14:05 +0545] POST /api/posts 200 84.625µs 
-127.0.0.1 - [09 Nov 22 14:05 +0545] GET /view/videos 200 1.103708ms 
-127.0.0.1 - [09 Nov 22 14:06 +0545] GET /view/videos 200 1.076667ms 
+[GIN-debug] Listening and serving HTTP on :3000
+::1 - [09 Nov 22 17:22 +0545] GET /view/videos 200 1.226ms 
+::1 - [09 Nov 22 17:22 +0545] GET /api/videos 200 594.667µs 
+::1 - [09 Nov 22 17:23 +0545] PUT /api/videos 404 3.958µs 
+::1 - [09 Nov 22 17:23 +0545] GET /api/videos 200 273.833µs 
+::1 - [09 Nov 22 17:23 +0545] PUT /api/videos/1 200 1.747709ms 
+::1 - [09 Nov 22 17:23 +0545] GET /view/videos 200 995µs 
+::1 - [09 Nov 22 17:23 +0545] GET /favicon.ico 404 3.083µs 
+::1 - [09 Nov 22 17:23 +0545] DELETE /api/videos/1 200 1.716459ms 
+::1 - [09 Nov 22 17:23 +0545] GET /view/videos 200 946.042µs 
