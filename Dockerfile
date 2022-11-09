@@ -18,7 +18,7 @@ RUN go build
 # Remove source files after building app
 RUN find . -name "*.go" -type f -delete
 
-# Make port available outside container
+# Make port availabe
 EXPOSE $PORT
 
 CMD ["./golab-gin-poc"]
